@@ -8,10 +8,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
+/* 칠판·교실 테마 */
 :root{
-  --bg:#f4f6fa; --surface:#ffffff; --ink:#15203b; --muted:#5a6580; --line:#dde3ee;
-  --accent:#0c8f7e; --accent-ink:#ffffff; --accent-soft:#e0f4f0; --navy:#15203b; --navy-ink:#ffffff;
-  --code-bg:#0f1a30; --shadow:0 1px 2px rgba(21,32,59,.06),0 6px 20px rgba(21,32,59,.06);
+  --bg:#e9e2d0; --surface:#fffdf4; --ink:#222; --muted:#6b5a3c; --line:#d6c9a6;
+  --accent:#2b4a3c; --accent-ink:#f4f1e6; --accent-soft:#e3ecdd; --navy:#2b4a3c; --navy-ink:#f4f1e6;
+  --wood:#a9794a; --chalk:#f7d56a; --hint-bg:#f8efc9; --tag-bg:#dfe9dc; --board-line:rgba(244,241,230,.55);
+  --code-bg:#1f2b25; --shadow:none;
   --sans:'Noto Sans KR','Malgun Gothic','Apple SD Gothic Neo','Noto Sans CJK KR',system-ui,sans-serif;
   --mono:ui-monospace,'D2Coding',Consolas,'SFMono-Regular',Menlo,monospace;
   box-sizing:border-box;
@@ -20,15 +22,15 @@
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#0c1324; --surface:#151f38; --ink:#e8edf8; --muted:#9aa8c6; --line:#27324f;
-    --accent:#3fd3bd; --accent-ink:#0c1324; --accent-soft:#143a3f; --navy:#0a1020; --navy-ink:#e8edf8;
-    --code-bg:#08101f; --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.25);
+    --bg:#1b1e19; --surface:#262b24; --ink:#ece6d4; --muted:#b9ad8d; --line:#3d4436;
+    --accent:#f7d56a; --accent-ink:#1b2a22; --accent-soft:#2f3a2c; --navy:#1f3a2e; --navy-ink:#ece6d4;
+    --wood:#8a6238; --hint-bg:#3a3a22; --tag-bg:#34402f; --code-bg:#141a16;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#0c1324; --surface:#151f38; --ink:#e8edf8; --muted:#9aa8c6; --line:#27324f;
-  --accent:#3fd3bd; --accent-ink:#0c1324; --accent-soft:#143a3f; --navy:#0a1020; --navy-ink:#e8edf8;
-  --code-bg:#08101f; --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.25);
+  --bg:#1b1e19; --surface:#262b24; --ink:#ece6d4; --muted:#b9ad8d; --line:#3d4436;
+  --accent:#f7d56a; --accent-ink:#1b2a22; --accent-soft:#2f3a2c; --navy:#1f3a2e; --navy-ink:#ece6d4;
+  --wood:#8a6238; --hint-bg:#3a3a22; --tag-bg:#34402f; --code-bg:#141a16;
 }
 html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 76px)}
 *,*::before,*::after{box-sizing:border-box}
@@ -177,8 +179,64 @@ body.teacher .teacher-note{display:block}
 .code .o,.code .p{color:#d6deeb}
 
 
-
-/* ---------- 추가 ---------- */
+/* ===== 칠판 테마 덮어쓰기 ===== */
+.top{border-bottom:8px solid var(--wood)}
+.logo{border-radius:50%;background:var(--navy-ink);color:var(--navy)}
+:root[data-theme="dark"] .logo{background:var(--chalk);color:#1b2a22}
+.ghost{border-color:var(--board-line);border-radius:20px}
+.hero{background-color:var(--navy);background-image:radial-gradient(rgba(255,255,255,.06) 1px,transparent 1px);background-size:6px 6px}
+.eyebrow,:root .hero .eyebrow{color:var(--chalk)}
+.how>div{border:2px solid var(--wood);border-radius:6px;box-shadow:none}
+.num{background:var(--navy);color:var(--chalk)}
+:root[data-theme="dark"] .num{background:var(--chalk);color:#1b2a22}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .num{background:var(--chalk);color:#1b2a22}:root:not([data-theme="light"]) .logo{background:var(--chalk);color:#1b2a22}}
+.stagenav{border-bottom:2px dashed var(--wood)}
+.pill{border:2px solid var(--wood);border-radius:6px;background:var(--surface)}
+.pill:hover{border-color:var(--navy)}
+.pill.on{background:var(--navy);color:var(--chalk);border-color:var(--navy)}
+.bar{background:var(--line);border-radius:20px;border:1.5px solid var(--wood)}
+.bar i{background:var(--chalk)}
+.rm{border:2px solid var(--wood);border-radius:6px}
+.rm:hover{border-color:var(--navy)}
+.rm-n{color:var(--accent)}
+.stage-h{border:5px solid var(--wood);border-radius:6px}
+.snum{color:var(--chalk)}
+.chip{border-radius:4px}
+.chip.ok{background:rgba(247,213,106,.16);color:#fbe9a8;border:1px solid rgba(247,213,106,.6)}
+.chip.no{color:#c9d3c8;border:1px dashed rgba(244,241,230,.5)}
+.scount{background:rgba(247,213,106,.18);color:var(--chalk);border-radius:20px}
+.card{border:2px solid var(--wood);border-radius:6px}
+.card.is-done{border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent)}
+.pid{background:var(--chalk);color:#2b4a3c;border-radius:4px}
+.stars{color:#b07d12}
+:root[data-theme="dark"] .stars{color:var(--chalk)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .stars{color:var(--chalk)}}
+.done-btn{background:var(--accent);color:var(--accent-ink);border:0;border-radius:20px}
+.done-btn[aria-pressed="true"]{background:var(--chalk);color:#2b4a3c}
+:root[data-theme="dark"] .done-btn[aria-pressed="true"]{background:var(--wood);color:#fff}
+.tag{background:var(--tag-bg);border-radius:4px}
+.hint-btn{background:var(--chalk);color:#2b4a3c;border:0;border-radius:4px;font-weight:700}
+.hint-btn:disabled{background:var(--line);color:var(--muted);opacity:1}
+.hint-body{border-left:4px solid var(--wood);background:var(--hint-bg)}
+.answer{border:2px solid var(--wood);border-radius:6px}
+.answer summary{background:var(--accent-soft)}
+.answer summary::before{color:var(--wood)}
+.copy-btn{border-radius:4px}
+.code,.console{border-radius:0}
+.console{border-radius:6px}
+.challenge{background:var(--accent-soft);border-radius:6px;border-left:6px solid var(--wood)}
+.teacher-note{border:2px dashed var(--wood);border-radius:6px}
+.preview{border:2px solid var(--wood);border-radius:6px}
+.console-h{color:#b9cbbd}
+.console .typed{color:var(--chalk)}
+.notes ul{border:2px solid var(--wood);border-radius:6px}
+.code .c1,.code .cm,.code .ch{color:#8fa597}
+.code .k,.code .kn,.code .kd,.code .ow,.code .kc{color:#9fe0b8}
+.code .s,.code .s1,.code .s2,.code .sa,.code .si,.code .se{color:#f7d56a}
+.code .m,.code .mi,.code .mf{color:#f4a58a}
+.code .nb,.code .nf,.code .nc,.code .fm,.code .bp{color:#a9d4f5}
+.code .o,.code .p{color:#ece6d4}
+button:focus-visible,summary:focus-visible,a:focus-visible,input:focus-visible{outline-color:var(--wood)}
 .card{content-visibility:auto;contain-intrinsic-size:auto 1100px}
 @media print{.card{content-visibility:visible}}
 
